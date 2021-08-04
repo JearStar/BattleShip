@@ -16,6 +16,11 @@ public class Board {
         }
     }
 
+    //EFFECTS: the 2D String array
+    public String[][] getBoard() {
+        return this.board;
+    }
+
     //EFFECTS: prints board to the console
     public void printBoard() {
         for (int i = 0; i < board.length; i++) {

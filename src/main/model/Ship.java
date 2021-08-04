@@ -43,6 +43,13 @@ public class Ship {
                 hits.add(position);
             }
         }
+        if (this.hits.size() == this.shipCells.size()) {
+            sinkShip();
+        }
+    }
+
+    public boolean isSunken() {
+        return sunken;
     }
 
     //EFFECTS: returns hits list
