@@ -26,6 +26,7 @@ public class Board {
         return this.board;
     }
 
+    //EFFECTS: returns shipsOnBoard
     public List<Ship> getShipsOnBoard() {
         return this.shipsOnBoard;
     }
