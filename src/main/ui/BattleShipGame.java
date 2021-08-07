@@ -1,10 +1,14 @@
 package ui;
 
+import model.Board;
+import model.Ship;
 import player.CPUEasy;
 import player.CPUMedium;
 import player.HumanPlayer;
 import player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BattleShipGame {
@@ -58,6 +62,29 @@ public class BattleShipGame {
 
     public void startGame() {
 
+    }
+
+    public void shipPlacement() {
+        List<Ship> listOfShips = new ArrayList<>();
+        Ship carrier = new Ship(0, 0, Board.RIGHT_ORIENTATION, 5);
+        Ship battleship = new Ship(0, 0, Board.RIGHT_ORIENTATION, 4);
+        Ship cruiser = new Ship(0, 0, Board.RIGHT_ORIENTATION, 3);
+        Ship submarine = new Ship(0, 0, Board.RIGHT_ORIENTATION, 2);
+        Ship destroyer = new Ship(0, 0, Board.RIGHT_ORIENTATION, 1);
+        listOfShips.add(carrier);
+        listOfShips.add(battleship);
+        listOfShips.add(cruiser);
+        listOfShips.add(submarine);
+        listOfShips.add(destroyer);
+
+        List<Ship> listOfShips2 = new ArrayList<>(listOfShips);
+
+
+
+    }
+
+    public boolean isGameOver() {
+        return false;
     }
 
     public static void clearScreen() {

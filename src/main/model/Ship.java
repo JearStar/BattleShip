@@ -48,6 +48,18 @@ public class Ship {
         }
     }
 
+    public void setOrientation(boolean orientation) {
+        this.orientation = orientation;
+    }
+
+    public void switchOrientation() {
+        if (this.orientation == Board.RIGHT_ORIENTATION) {
+            this.orientation = Board.DOWN_ORIENTATION;
+        } else {
+            this.orientation = Board.RIGHT_ORIENTATION;
+        }
+    }
+
     public boolean isSunken() {
         return sunken;
     }
@@ -80,5 +92,9 @@ public class Ship {
     //EFFECTS: sets sunken to true
     public void sinkShip() {
         sunken = true;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

@@ -44,17 +44,17 @@ public class Board {
     }
 
     //MODIFIES: this.board
-    //EFFECTS: places starting at given x and y and lays it out to the right (true) or downwards (false) depending on
+    //EFFECTS: places starting at x and y of ship and lays it out to the right (true) or downwards (false) depending on
     //         orientation. Returns a boolean to indicate if placement successful.
     public boolean addShip(Ship ship) {
         if (!isPositionOnBoard(ship.getPosition().getX(), ship.getPosition().getY()) ||
                 (ship.getOrientation() == RIGHT_ORIENTATION && (ship.getPosition().getX() + ship.getSize() > board.length)) ||
                 (ship.getOrientation() == DOWN_ORIENTATION && (ship.getPosition().getY() + ship.getSize() > board.length))) {
-            System.out.println("That placement is out of bounds");
+//            System.out.println("That placement is out of bounds");
             return false;
 
         } else if (shipInTheWay(ship)) {
-            System.out.println("There is a ship in the way of this placement");
+//            System.out.println("There is a ship in the way of this placement");
             return false;
 
         } else if (ship.getOrientation() == RIGHT_ORIENTATION) {
@@ -62,12 +62,12 @@ public class Board {
                 board[ship.getPosition().getY()][i] = String.valueOf(ship.getSize());
             }
             shipsOnBoard.add(ship);
-            System.out.println("Ship placement successful");
+//            System.out.println("Ship placement successful");
         } else if (ship.getOrientation() == DOWN_ORIENTATION) {
             for (int i = ship.getPosition().getY(); i < ship.getPosition().getY() + ship.getSize(); i++) {
                 board[i][ship.getPosition().getX()] = String.valueOf(ship.getSize());
             }
-            System.out.println("Ship placement successful");
+//            System.out.println("Ship placement successful");
             shipsOnBoard.add(ship);
         }
         return true;
@@ -77,18 +77,18 @@ public class Board {
     //EFFECTS: returns true if there is a ship in the way of a ship placement
     private boolean shipInTheWay(Ship ship) {
         if (ship.getOrientation() == RIGHT_ORIENTATION) {
-            for (int i = ship.getPosition().getY(); i <= ship.getPosition().getX() + ship.getSize(); i++) {
+            for (int i = ship.getPosition().getX(); i < ship.getPosition().getX() + ship.getSize(); i++) {
                 if (!board[ship.getPosition().getY()][i].equals(OPEN_SQUARE)) {
                     return true;
-                } else if (i == board.length - 1) {
+                } else if (i == board.length) {
                     return false;
                 }
             }
         } else {
-            for (int i = ship.getPosition().getY(); i <= ship.getPosition().getY() + ship.getSize(); i++) {
+            for (int i = ship.getPosition().getY(); i < ship.getPosition().getY() + ship.getSize(); i++) {
                 if (!board[i][ship.getPosition().getX()].equals(OPEN_SQUARE)) {
                     return true;
-                } else if (i == board.length - 1) {
+                } else if (i == board.length) {
                     return false;
                 }
             }
@@ -114,6 +114,16 @@ public class Board {
             return true;
         }
         return false;
+    }
+
+    public void removeAllShips() {
+        this.board = new String[board.length][board.length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                board[i][j] = OPEN_SQUARE;
+            }
+        }
+        shipsOnBoard = new ArrayList<>();
     }
 
     //EFFECTS: returns true if position is on board, false otherwise

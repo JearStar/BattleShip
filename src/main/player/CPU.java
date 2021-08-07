@@ -1,6 +1,7 @@
 package player;
 
 import model.Position;
+import model.Ship;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,5 +22,14 @@ public abstract class CPU extends Player {
             }
         }
         Collections.shuffle(posToVisit);
+    }
+
+    public boolean placeShip(Boolean type, List<Ship> ships) {
+        for (Ship s : ships) {
+            if (!placeShipRandomly(s, new ArrayList<>(), new ArrayList<>())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -145,7 +145,7 @@ public class BoardTest {
         Ship ship5 = new Ship(4, 2, Board.DOWN_ORIENTATION, 4);
         assertFalse(testBoard.addShip(ship5));
         Ship ship6 = new Ship(4, 1, Board.DOWN_ORIENTATION, 4);
-        assertFalse(testBoard.addShip(ship6));
+        assertTrue(testBoard.addShip(ship6));
         Ship ship7 = new Ship(0, 5, Board.RIGHT_ORIENTATION, 4);
         assertTrue(testBoard.addShip(ship7));
         assertTrue(testBoard.getShipsOnBoard().contains(ship1));
@@ -153,17 +153,35 @@ public class BoardTest {
         assertFalse(testBoard.getShipsOnBoard().contains(ship3));
         assertTrue(testBoard.getShipsOnBoard().contains(ship4));
         assertFalse(testBoard.getShipsOnBoard().contains(ship5));
-        assertFalse(testBoard.getShipsOnBoard().contains(ship6));
+        assertTrue(testBoard.getShipsOnBoard().contains(ship6));
         assertTrue(testBoard.getShipsOnBoard().contains(ship7));
         assertEquals("#  #  #  #  #  #  #  #  #  #  \n" +
-                "#  #  #  #  #  #  #  #  #  #  \n" +
-                "#  #  #  #  #  #  #  #  #  #  \n" +
-                "#  #  #  #  #  #  #  #  #  #  \n" +
-                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  4  #  #  #  #  #  \n" +
+                "#  #  #  #  4  #  #  #  #  #  \n" +
+                "#  #  #  #  4  #  #  #  #  #  \n" +
+                "#  #  #  #  4  #  #  #  #  #  \n" +
                 "4  4  4  4  4  4  4  4  4  #  \n" +
                 "#  #  #  #  4  #  #  #  #  #  \n" +
                 "#  #  #  #  4  #  #  #  #  #  \n" +
                 "#  #  #  #  4  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n", testBoard.boardToString());
+    }
+
+    @Test
+    void testAddShipFailShipInTheWayEnd() {
+        Ship ship1 = new Ship(2, 0, Board.DOWN_ORIENTATION, 9);
+        Ship ship2 = new Ship(0, 8, Board.RIGHT_ORIENTATION, 9);
+        assertTrue(testBoard.addShip(ship1));
+        assertFalse(testBoard.addShip(ship2));
+        assertEquals("#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
+                "#  #  9  #  #  #  #  #  #  #  \n" +
                 "#  #  #  #  #  #  #  #  #  #  \n", testBoard.boardToString());
     }
 
