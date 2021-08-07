@@ -14,12 +14,13 @@ public abstract class Player {
     public static boolean MANUAL_PLACEMENT = true;
     List<Position> prevPositions;
     Board playerBoard;
-    Board enemyBoard;
+    Board enemyBoardYourPOV;
+    Board enemyBoardActual;
 
     public Player(int size) {
         prevPositions = new ArrayList<>();
         playerBoard = new Board(size);
-        enemyBoard = new Board(size);
+        enemyBoardYourPOV = new Board(size);
     }
 
     public abstract Position getNextMove();
@@ -28,7 +29,24 @@ public abstract class Player {
         return this.playerBoard;
     }
 
-    public boolean placeShipRandomly(Ship ship, List<Position> posWorklist,
+    public Board getEnemyBoardActual() {
+        return this.enemyBoardActual;
+    }
+
+    public void setEnemyBoardActual(Board board) {
+        this.enemyBoardActual = board;
+    }
+
+    public void printEnemyBoard() {
+        System.out.println("Enemy Board:");
+        System.out.println(enemyBoardYourPOV.boardToString());
+    }
+
+    public void printPlayerBoard() {
+        System.out.println("Your Board:");
+        System.out.println(playerBoard.boardToString());
+    }
+    protected boolean placeShipRandomly(Ship ship, List<Position> posWorklist,
                                      List<Position> tried) {
         Random rand = new Random();
         if (tried.isEmpty()) {
@@ -125,5 +143,24 @@ public abstract class Player {
         return result;
     }
 
-    public abstract boolean placeShip(Boolean type, List<Ship> ships);
+    public boolean markShot(Position position) {
+        if (!enemyBoardActual.getBoard()[position.getY()][position.getX()].equals(Board.OPEN_SQUARE)) {
+            enemyBoardYourPOV.getBoard()[position.getY()][position.getX()] = Ship.HIT_MARKER;
+            for (Ship s : enemyBoardActual.getShipsOnBoard()) {
+                if (s.getShipCells().contains(position)) {
+                    s.hitShip(position);
+                    break;
+                }
+            }
+            return true;
+        } else {
+            enemyBoardYourPOV.getBoard()[position.getY()][position.getX()] = Ship.MISS_MARKER;
+            return false;
+        }
+
+    }
+
+    public abstract void takeTurn();
+
+    public abstract void placeShip(Boolean type, List<Ship> ships);
 }

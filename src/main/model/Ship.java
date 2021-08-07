@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ship {
+    public static String HIT_MARKER = "O";
+    public static String MISS_MARKER = "X";
     int size;
     Position position;
     boolean orientation;
     boolean sunken;
     List<Position> shipCells;
     List<Position> hits;
+    boolean markedSunk;
 
     public Ship(int x, int y, boolean orientation, int size) {
         position = new Position(x, y);
@@ -18,6 +21,7 @@ public class Ship {
         sunken = false;
         shipCells = new ArrayList<>();
         hits = new ArrayList<>();
+        markedSunk = false;
         setShipCells();
     }
 
@@ -35,12 +39,14 @@ public class Ship {
         shipCells = result;
     }
 
+
     //MODIFIES: this
     //EFFECTS: adds one of the ship's positions to hit list
     public void hitShip(Position position) {
         if (shipCells.contains(position)) {
             if (!hits.contains(position)) {
                 hits.add(position);
+                System.out.println("Positive hit on target");
             }
         }
         if (this.hits.size() == this.shipCells.size()) {
@@ -92,9 +98,11 @@ public class Ship {
     //EFFECTS: sets sunken to true
     public void sinkShip() {
         sunken = true;
+        System.out.println("A ship has been sunk...");
     }
 
     public void setPosition(Position position) {
         this.position = position;
+        setShipCells();
     }
 }

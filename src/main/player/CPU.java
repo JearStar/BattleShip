@@ -13,6 +13,7 @@ public abstract class CPU extends Player {
     public CPU(int size) {
         super(size);
         posToVisit = new ArrayList<>();
+        generateFirstMoves();
     }
 
     public void generateFirstMoves() {
@@ -24,12 +25,14 @@ public abstract class CPU extends Player {
         Collections.shuffle(posToVisit);
     }
 
-    public boolean placeShip(Boolean type, List<Ship> ships) {
+    public void placeShip(Boolean type, List<Ship> ships) {
         for (Ship s : ships) {
             if (!placeShipRandomly(s, new ArrayList<>(), new ArrayList<>())) {
-                return false;
             }
         }
-        return true;
+    }
+
+    public void takeTurn() {
+        markShot(getNextMove());
     }
 }

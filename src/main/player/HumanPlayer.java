@@ -27,26 +27,57 @@ public class HumanPlayer extends Player {
             } else if (alreadyMadeMove(x, y)) {
                 System.out.println("You already shot here!");
             } else {
-                return new Position(x, y);
+                Position move = new Position(x, y);
+                prevPositions.add(move);
+                return move;
             }
         }
     }
 
     @Override
-    public boolean placeShip(Boolean type, List<Ship> ships) {
-        if (type == Player.RANDOM_PLACEMENT) {
-            for (Ship s : ships) {
-                if (!placeShipRandomly(s, new ArrayList<>(), new ArrayList<>())) {
-                    return false;
-                }
-            }
+    public void takeTurn() {
+        printPlayerBoard();
+        printEnemyBoard();
+        if (markShot(getNextMove())) {
         } else {
-            return doManualPlacement(ships);
+            System.out.println("Shot missed...");
         }
-        return true;
+        printEnemyBoard();
+
     }
 
+
+    @Override
+    public void placeShip(Boolean type, List<Ship> ships) {
+        if (type == Player.RANDOM_PLACEMENT) {
+            doRandomPlacement(ships);
+        } else {
+            doManualPlacement(ships);
+        }
+    }
+
+
+
+    public boolean doRandomPlacement(List<Ship> ships) {
+        playerBoard.removeAllShips();
+        for (Ship s : ships) {
+            placeShipRandomly(s, new ArrayList<>(), new ArrayList<>());
+        }
+        while (true) {
+            System.out.println(playerBoard.boardToString());
+            System.out.println("Are you 'ok' with your placement? Or would you like 'redo'?");
+            String choice = scanner.nextLine().toLowerCase();
+            if (choice.equals("ok")) {
+                return true;
+            } else if (choice.equals("redo")) {
+                return doRandomPlacement(ships);
+            } else {
+                System.out.println("Selection not valid...");
+            }
+        }
+    }
     public boolean doManualPlacement(List<Ship> ships) {
+        playerBoard.removeAllShips();
         for (Ship s : ships) {
             while (true) {
                 System.out.println("Please enter x coordinate to place your " + s.getSize() + "-unit ship");
@@ -61,7 +92,18 @@ public class HumanPlayer extends Player {
                 }
             }
         }
-        return true;
+        while (true) {
+            System.out.println(playerBoard.boardToString());
+            System.out.println("Are you 'ok' with your placement? Or would you like 'redo'?");
+            String choice = scanner.nextLine().toLowerCase();
+            if (choice.equals("ok")) {
+                return true;
+            } else if (choice.equals("redo")) {
+                return doManualPlacement(ships);
+            } else {
+                System.out.println("Selection not valid...");
+            }
+        }
     }
 
     //EFFECTS: returns true if coordinate is a valid coordinate on the board, false otherwise
