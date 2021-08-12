@@ -128,7 +128,17 @@ public class BattleShipGame {
         listOfShips.add(submarine);
         listOfShips.add(destroyer);
 
-        listOfShips2 = new ArrayList<>(listOfShips);
+        listOfShips2 = new ArrayList<>();
+        Ship carrier2 = new Ship(0, 0, Board.RIGHT_ORIENTATION, 5);
+        Ship battleship2 = new Ship(0, 0, Board.RIGHT_ORIENTATION, 4);
+        Ship cruiser2 = new Ship(0, 0, Board.RIGHT_ORIENTATION, 3);
+        Ship submarine2 = new Ship(0, 0, Board.RIGHT_ORIENTATION, 2);
+        Ship destroyer2 = new Ship(0, 0, Board.RIGHT_ORIENTATION, 1);
+        listOfShips2.add(carrier2);
+        listOfShips2.add(battleship2);
+        listOfShips2.add(cruiser2);
+        listOfShips2.add(submarine2);
+        listOfShips2.add(destroyer2);
 
 
         while (true) {

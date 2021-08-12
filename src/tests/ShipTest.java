@@ -53,4 +53,30 @@ public class ShipTest {
         assertEquals(testShip1.getHits().size(), 4);
         assertTrue(testShip1.isSunken());
     }
+
+    @Test
+    void testSetOrientation() {
+        testShip1.setOrientation(Board.RIGHT_ORIENTATION);
+        assertEquals(testShip1.getOrientation(), Board.RIGHT_ORIENTATION);
+        testShip1.setOrientation(Board.DOWN_ORIENTATION);
+        assertEquals(testShip1.getOrientation(), Board.DOWN_ORIENTATION);
+    }
+
+    @Test
+    void testToggleOrientation() {
+        assertEquals(testShip1.getOrientation(), Board.RIGHT_ORIENTATION);
+        testShip1.switchOrientation();
+        assertEquals(testShip1.getOrientation(), Board.DOWN_ORIENTATION);
+        testShip1.switchOrientation();
+        assertEquals(testShip1.getOrientation(), Board.RIGHT_ORIENTATION);
+    }
+
+    @Test
+    void testSetPosition() {
+        Position testPos1 = new Position(0, 0);
+        Position testPos2 = new Position(5, 5);
+        assertEquals(testShip1.getPosition(), testPos1);
+        testShip1.setPosition(testPos2);
+        assertEquals(testShip1.getPosition(), testPos2);
+    }
 }

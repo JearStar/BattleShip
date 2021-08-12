@@ -144,8 +144,10 @@ public abstract class Player {
     }
 
     public boolean markShot(Position position) {
+        this.prevPositions.add(position);
         if (!enemyBoardActual.getBoard()[position.getY()][position.getX()].equals(Board.OPEN_SQUARE)) {
             enemyBoardYourPOV.getBoard()[position.getY()][position.getX()] = Ship.HIT_MARKER;
+            enemyBoardActual.getBoard()[position.getY()][position.getX()] = Ship.HIT_MARKER;
             for (Ship s : enemyBoardActual.getShipsOnBoard()) {
                 if (s.getShipCells().contains(position)) {
                     s.hitShip(position);
@@ -155,6 +157,8 @@ public abstract class Player {
             return true;
         } else {
             enemyBoardYourPOV.getBoard()[position.getY()][position.getX()] = Ship.MISS_MARKER;
+            enemyBoardActual.getBoard()[position.getY()][position.getX()] = Ship.MISS_MARKER;
+            System.out.println("Shot missed...");
             return false;
         }
 

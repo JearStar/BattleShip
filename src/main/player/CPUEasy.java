@@ -14,4 +14,6 @@ public class CPUEasy extends CPU {
         return this.posToVisit.get(posToVisit.size() - 1);
     }
 
+
+
 }

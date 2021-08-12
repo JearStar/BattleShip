@@ -148,6 +148,9 @@ public class BoardTest {
         assertTrue(testBoard.addShip(ship6));
         Ship ship7 = new Ship(0, 5, Board.RIGHT_ORIENTATION, 4);
         assertTrue(testBoard.addShip(ship7));
+        Ship ship8 = new Ship(5, 0, Board.RIGHT_ORIENTATION, 5);
+        assertTrue(testBoard.addShip(ship8));
+
         assertTrue(testBoard.getShipsOnBoard().contains(ship1));
         assertFalse(testBoard.getShipsOnBoard().contains(ship2));
         assertFalse(testBoard.getShipsOnBoard().contains(ship3));
@@ -155,7 +158,8 @@ public class BoardTest {
         assertFalse(testBoard.getShipsOnBoard().contains(ship5));
         assertTrue(testBoard.getShipsOnBoard().contains(ship6));
         assertTrue(testBoard.getShipsOnBoard().contains(ship7));
-        assertEquals("#  #  #  #  #  #  #  #  #  #  \n" +
+        assertTrue(testBoard.getShipsOnBoard().contains(ship8));
+        assertEquals("#  #  #  #  #  5  5  5  5  5  \n" +
                 "#  #  #  #  4  #  #  #  #  #  \n" +
                 "#  #  #  #  4  #  #  #  #  #  \n" +
                 "#  #  #  #  4  #  #  #  #  #  \n" +
@@ -204,6 +208,39 @@ public class BoardTest {
         assertTrue(testBoard.removeShip(shipY));
         assertTrue(testBoard.getShipsOnBoard().isEmpty());
 
+        assertEquals("#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n", testBoard.boardToString());
+    }
+
+    @Test
+    void testRemoveAllShips() {
+        Ship testShip1 = new Ship(0, 0, Board.RIGHT_ORIENTATION, 5);
+        Ship testShip2 = new Ship(1, 1, Board.DOWN_ORIENTATION, 5);
+        assertTrue(testBoard.addShip(testShip1));
+        assertTrue(testBoard.addShip(testShip2));
+        assertTrue(testBoard.getShipsOnBoard().contains(testShip1));
+        assertTrue(testBoard.getShipsOnBoard().contains(testShip2));
+        assertEquals("5  5  5  5  5  #  #  #  #  #  \n" +
+                "#  5  #  #  #  #  #  #  #  #  \n" +
+                "#  5  #  #  #  #  #  #  #  #  \n" +
+                "#  5  #  #  #  #  #  #  #  #  \n" +
+                "#  5  #  #  #  #  #  #  #  #  \n" +
+                "#  5  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n" +
+                "#  #  #  #  #  #  #  #  #  #  \n", testBoard.boardToString());
+        testBoard.removeAllShips();
+        assertFalse(testBoard.getShipsOnBoard().contains(testShip1));
+        assertFalse(testBoard.getShipsOnBoard().contains(testShip2));
         assertEquals("#  #  #  #  #  #  #  #  #  #  \n" +
                 "#  #  #  #  #  #  #  #  #  #  \n" +
                 "#  #  #  #  #  #  #  #  #  #  \n" +

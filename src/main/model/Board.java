@@ -80,16 +80,12 @@ public class Board {
             for (int i = ship.getPosition().getX(); i < ship.getPosition().getX() + ship.getSize(); i++) {
                 if (!board[ship.getPosition().getY()][i].equals(OPEN_SQUARE)) {
                     return true;
-                } else if (i == board.length) {
-                    return false;
                 }
             }
         } else {
             for (int i = ship.getPosition().getY(); i < ship.getPosition().getY() + ship.getSize(); i++) {
                 if (!board[i][ship.getPosition().getX()].equals(OPEN_SQUARE)) {
                     return true;
-                } else if (i == board.length) {
-                    return false;
                 }
             }
         }

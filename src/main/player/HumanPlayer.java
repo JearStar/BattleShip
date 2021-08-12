@@ -28,7 +28,6 @@ public class HumanPlayer extends Player {
                 System.out.println("You already shot here!");
             } else {
                 Position move = new Position(x, y);
-                prevPositions.add(move);
                 return move;
             }
         }
@@ -38,10 +37,7 @@ public class HumanPlayer extends Player {
     public void takeTurn() {
         printPlayerBoard();
         printEnemyBoard();
-        if (markShot(getNextMove())) {
-        } else {
-            System.out.println("Shot missed...");
-        }
+        markShot(getNextMove());
         printEnemyBoard();
 
     }
@@ -62,6 +58,9 @@ public class HumanPlayer extends Player {
         playerBoard.removeAllShips();
         for (Ship s : ships) {
             placeShipRandomly(s, new ArrayList<>(), new ArrayList<>());
+        }
+        for (Ship s : ships) {
+            s.setShipCells();
         }
         while (true) {
             System.out.println(playerBoard.boardToString());
