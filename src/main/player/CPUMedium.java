@@ -21,9 +21,12 @@ public class CPUMedium extends CPU {
     public Position getNextMove() {
         if (!urgentPositionsToVisit.isEmpty()) {
             Position shot = urgentPositionsToVisit.get(urgentPositionsToVisit.size() - 1);
+            if (hitTarget(shot)) {
+                addSurroundingCellsToUrgent(shot);
+            }
             urgentPositionsToVisit.remove(shot);
             return shot;
-        } else if (hitTargetFirstPositionInList()) {
+        } else if (hitTarget(posToVisit.get(0))) {
             Position shot = posToVisit.get(0);
             addSurroundingCellsToUrgent(shot);
             posToVisit.remove(shot);
@@ -37,8 +40,7 @@ public class CPUMedium extends CPU {
 
 
 
-    public boolean hitTargetFirstPositionInList() {
-        Position target = posToVisit.get(0);
+    public boolean hitTarget(Position target) {
         return (!enemyBoardActual.getBoard()[target.getY()][target.getX()].equals(Board.OPEN_SQUARE));
     }
 
@@ -69,15 +71,11 @@ public class CPUMedium extends CPU {
             result.add(right);
         }
         for (Position p : prevPositions) {
-            if (result.contains(p)) {
-                result.remove(p);
-            }
+            result.remove(p);
         }
 
         for (Position p : result) {
-            if (posToVisit.contains(p)) {
-                posToVisit.remove(p);
-            }
+            posToVisit.remove(p);
         }
         Collections.shuffle(result);
         urgentPositionsToVisit.addAll(result);

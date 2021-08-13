@@ -31,12 +31,15 @@ public abstract class CPU extends Player {
 
     public void placeShip(Boolean type, List<Ship> ships) {
         for (Ship s : ships) {
-            if (!placeShipRandomly(s, new ArrayList<>(), new ArrayList<>())) {
-            }
+            placeShipRandomly(s, new ArrayList<>(), new ArrayList<>());
+        }
+        for (Ship s : this.getPlayerBoard().getShipsOnBoard()) {
+            s.setShipCells();
         }
     }
 
     public void takeTurn() {
+//        System.out.println(this.getPlayerBoard().boardToString());
         markShot(getNextMove());
     }
 }

@@ -27,8 +27,7 @@ public class HumanPlayer extends Player {
             } else if (alreadyMadeMove(x, y)) {
                 System.out.println("You already shot here!");
             } else {
-                Position move = new Position(x, y);
-                return move;
+                return new Position(x, y);
             }
         }
     }
@@ -49,6 +48,9 @@ public class HumanPlayer extends Player {
             doRandomPlacement(ships);
         } else {
             doManualPlacement(ships);
+        }
+        for (Ship s : this.playerBoard.getShipsOnBoard()) {
+            s.setShipCells();
         }
     }
 
