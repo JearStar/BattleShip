@@ -25,6 +25,10 @@ public abstract class Player {
 
     public abstract Position getNextMove();
 
+    public List<Position> getPrevPositions() {
+        return this.prevPositions;
+    }
+
     public Board getPlayerBoard() {
         return this.playerBoard;
     }
