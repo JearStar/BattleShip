@@ -11,7 +11,9 @@ public class CPUEasy extends CPU {
 
     @Override
     public Position getNextMove() {
-        return this.posToVisit.get(posToVisit.size() - 1);
+        Position ret = posToVisit.get(posToVisit.size() - 1);
+        posToVisit.remove(posToVisit.size() - 1);
+        return ret;
     }
 
 
